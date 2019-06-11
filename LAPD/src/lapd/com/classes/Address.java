@@ -1,6 +1,6 @@
 package lapd.com.classes;
 
-public class Adress {
+public class Address {
 
 	private int id;
 	private String adressStreet;
@@ -8,22 +8,19 @@ public class Adress {
 	private String geoLocation;
 	private int reportingDistrict;
 	
-	Adress (int id, String adressStreet, String crossStreet, String geoLocation, int reportingDistrict) {
+	Address (int id, String adressStreet, String geoLocation, int reportingDistrict) {
 		
 		this.id = id;
 		this.adressStreet = adressStreet;
-		this.crossStreet = crossStreet;
 		this.geoLocation = geoLocation;
 		this.reportingDistrict = reportingDistrict;
 		
 	}
 	
-	Adress (int id, String adressStreet, String geoLocation, int reportingDistrict) {
-		
-		this.id = id;
-		this.adressStreet = adressStreet;
-		this.geoLocation = geoLocation;
-		this.reportingDistrict = reportingDistrict;
+	Address (int id, String adressStreet, String crossStreet, String geoLocation, int reportingDistrict) {
+	
+		this(id, adressStreet, geoLocation, reportingDistrict);
+		this.crossStreet = crossStreet;
 		
 	}
 	
