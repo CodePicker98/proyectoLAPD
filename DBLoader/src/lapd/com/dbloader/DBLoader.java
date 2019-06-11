@@ -16,11 +16,12 @@ import java.util.StringTokenizer;
 public class DBLoader {
 
 	private static PreparedStatement ps;
+	private static int contNoInsert = 0;;
 	
 	public static void main(String[] args) {
 		try {
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/???", "postgres", "root");
-			ps = c.prepareStatement("INSERT INTO Crime_Types VALUES(?,?,?)");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pruebalapd", "postgres", "root");
+			ps = c.prepareStatement("INSERT INTO crime_types VALUES(?,?)");
 			
 			ArrayList<String> index = new ArrayList<>();
 			Map<String, String> indexToData = new HashMap<>();
@@ -59,7 +60,7 @@ public class DBLoader {
 							st.nextToken();
 						}
 						
-						System.out.println(index.get(i) + " " + indexToData.get(index.get(i)));
+						//System.out.println(index.get(i) + " " + indexToData.get(index.get(i)));
 					}
 					insert(indexToData);
 					line = br.readLine();
@@ -67,6 +68,8 @@ public class DBLoader {
 				
 				line = br.readLine();
 			}
+			br.close();
+			System.out.println("No se han insertado " + contNoInsert + " filas.");
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
@@ -82,16 +85,18 @@ public class DBLoader {
 	private static void insert(Map<String, String> indexToData) {
 		try {
 			ps.setInt(1, Integer.parseInt(indexToData.get("Crime Code")));
-			
-			//ps.executeUpdate();
+			ps.setString(2, indexToData.get("Crime Code Description"));
+			ps.executeUpdate();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if(e.getSQLState().equals("23505")) {
+				contNoInsert++;
+			} else {
+				e.printStackTrace();
+			}
 		}
-		
 		
 	}
 
