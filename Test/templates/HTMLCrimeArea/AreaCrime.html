@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		<link rel = "stylesheet" href = "AreaCrime.css">
+		<title>Area crimes</title>
+	</head>
+	
+	<body id = "estilo5">
+	
+		<div class = "container-fluid">
+			
+			<div class = "row" id = "estilo2">
+					<div class = "col col-2" id = "estilo3"><img src="logoLAPD.png"></div>
+					<div class = "col col-sm-2.5" id = "estilo3" style="text-align:center"><b><u>Crimes on area</b></u><br>{{ num_crimes }}</div>
+					<div class = "col col-sm-2.5" id = "estilo3" style="text-align:center"><b><u>Victim numbers</u></b><br>{{ victim_num }}</div>
+					
+			</div>
+
+			<div class = "row" id = "estilo4">
+				<div class = "col col-sm-2" id = "estilo3"><b>Victim information</b></div>
+				<div class = "col col-sm-10" id = "estilo3"><b>Times</b></div>
+				
+			</div>
+		
+			<div class = "row" id = "estilo1">
+				<div class = "col col-sm-12" id = "estilo3"><i><b>Sex</b></i></div>
+				
+			</div>
+
+			<div class = "row" id = "estilo2">
+				<div class = "col col-sm-2" id = "estilo3"><i>Female</i></div>
+				<div class = "col col-sm-10" id = "estilo3"> {{ female_times }}</div>
+			</div>
+
+			<div class = "row" id = "estilo1">
+				<div class = "col col-sm-2" id = "estilo3"><i>Male</i></div>
+				<div class = "col col-sm-10" id = "estilo3">{{ male_times }}</div>
+			</div>
+
+			<div class = "row" id = "estilo2">
+				<div class = "col col-sm-12" id = "estilo3"><b><i>Descent</b></i></div>
+				
+			</div>
+
+			<div class = "row" id = "estilo1">
+				<div class = "col col-sm-2" id = "estilo3"><i>White</i></div>
+				<div class = "col col-sm-10" id = "estilo3">{{ while_times }}</div>
+			</div>
+
+			<div class = "row" id = "estilo2">
+				<div class = "col col-sm-2" id = "estilo3"><i>Black</i></div>
+				<div class = "col col-sm-10" id = "estilo3">{{ black_times }}</div>
+			</div>
+			
+			<div class = "row" id = "estilo1">
+				<div class = "col col-sm-2" id = "estilo3"><i>Hispanic</i></div>
+				<div class = "col col-sm-10" id = "estilo3">{{ hispanic_times }}</div>
+			</div>
+
+			<div class = "row" id = "estilo2">
+				<div class = "col col-sm-2" id = "estilo3"><i>Asian</i></div>
+				<div class = "col col-sm-10" id = "estilo3">{{ asian_times }}</div>
+			</div>
+			
+			<div class = "row" id = "estilo1">
+				<div class = "col col-sm-2" id = "estilo3"><i>Other</i></div>
+				<div class = "col col-sm-10" id = "estilo3">{{ other_times }}</div>
+			</div>
+
+			<div class = "row" id = "estilo2">
+				<div class = "col col-sm-2" id = "estilo3"><i>Unknown</i></div>
+				<div class = "col col-sm-10" id = "estilo3">{{ unknown_times }}</div>
+			</div>
+
+			<div class = "row" id = "estilo1">
+				<div class = "col col-sm-2" id = "estilo3"><b><i>AVG age</b></i></div>
+				<div class = "col col-sm-10" id = "estilo3">{{ avg_age }}</div>
+			</div>
+
+
+			
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+		<div id="footer">
+			<p>LAPD DAM 18/19</p>
+		</div>
+	</body>
+
+</html>
