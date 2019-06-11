@@ -1,0 +1,34 @@
+CREATE DATABASE proyectoLAPD;
+
+CREATE TABLE Areas (id INT,
+				    name VARCHAR(20) NOT NULL
+				   );
+
+CREATE TABLE Crime_Types (code INT,
+						  description VARCHAR(100) NOT NULL,
+						  mo_code CHAR(4)[]
+						 );
+
+CREATE TABLE Victims (id SERIAL,
+					  age NUMERIC(3,0) NOT NULL,
+					  sex CHAR,
+					  descent CHAR);
+
+CREATE TABLE Premises (code NUMERIC(3,0),
+					   description VARCHAR(100) NOT NULL
+					  );
+					  
+CREATE TABLE Weapons (code INT,
+					  description VARCHAR(100) NOT NULL
+					 );
+					 
+CREATE TABLE Statuses (code CHAR(2),
+					   description VARCHAR(20) NOT NULL
+					  );
+					  
+CREATE TABLE AddressES (id SERIAL, 
+						address_street VARCHAR(30),
+						cross_street VARCHAR(20),
+						geo_location VARCHAR(30),
+						reporting_district INT
+					   );
