@@ -42,7 +42,7 @@ CREATE TABLE Addresses (id SERIAL,
 					   );
 
 CREATE TABLE Crimes (dr_number INT,
-					 date_reporter DATE NOT NULL,
+					 date_reported DATE NOT NULL,
 					 date_ocurred DATE NOT NULL,
 					 time_ocurred INT NOT NULL, 
 					 area INT,
@@ -54,7 +54,7 @@ CREATE TABLE Crimes (dr_number INT,
 					 premise NUMERIC(3,0) NOT NULL,
 					 weapon INT,
 					 status CHAR(2) NOT NULL,
-					 adress INT NOT NULL,
+					 address INT NOT NULL,
 					 CONSTRAINT area_FK FOREIGN KEY (area) 
 					 REFERENCES Areas(id),
 					 CONSTRAINT crime_code_1_FK FOREIGN KEY (crime_code_1) 
@@ -73,6 +73,6 @@ CREATE TABLE Crimes (dr_number INT,
 					 REFERENCES Weapons (code),
 					 CONSTRAINT status_FK FOREIGN KEY (status) 
 					 REFERENCES Statuses (code),
-					 CONSTRAINT adress_FK FOREIGN KEY (adress) 
-					 REFERENCES Adresses (id)
+					 CONSTRAINT adress_FK FOREIGN KEY (address) 
+					 REFERENCES Addresses (id)
 					);
