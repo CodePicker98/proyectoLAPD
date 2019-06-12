@@ -12,9 +12,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class DBLoader {
@@ -33,6 +37,14 @@ public class DBLoader {
 	
 	public static void main(String[] args) {
 		try {
+			/*QUITAR LUEGO
+			Connection a = DriverManager.getConnection("jdbc:postgresql://localhost:5432/dam", "postgres", "root");
+			PreparedStatement psInit1 = a.prepareStatement("DROP DATABASE pruebalapd");
+			PreparedStatement psInit2 = a.prepareStatement("CREATE DATABASE pruebalapd");
+			psInit1.executeUpdate();
+			psInit2.executeUpdate();
+			a.close();
+			*/
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pruebalapd", "postgres", "root");
 			//Definicion inserts
 			psAreas = c.prepareStatement("INSERT INTO areas VALUES(?,?)");
@@ -47,8 +59,13 @@ public class DBLoader {
 			
 			ArrayList<String> index = new ArrayList<>();
 			Map<String, String> indexToData = new HashMap<>();
-			BufferedReader br = new BufferedReader(new FileReader("files\\Crime_Data_from_2010_to_Present.csv"));
+			BufferedReader br = new BufferedReader(new FileReader("files\\Crime_Data_from_2010_to_PresentCut.csv"));
 			String line = br.readLine();
+			
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Si es la primera vez que lo ejecutas introduce 1, si es la segunda vez introduce 2: ");
+			int opc = sc.nextInt();
+			sc.close();
 			
 			if (line != null) {
 				StringTokenizer st = new StringTokenizer(line, ",");
@@ -85,14 +102,28 @@ public class DBLoader {
 						//System.out.println(index.get(i) + " " + indexToData.get(index.get(i)));
 					}
 					//Llamadas a las funciones insert
-					insertAreas(indexToData);
-					insertCrime_Types(indexToData);
-					insertVictims(indexToData);
-					insertPremises(indexToData);
-					insertWeapons(indexToData);
-					insertStatuses(indexToData);
-					insertAddresses(indexToData);
-					insertCrimes(indexToData);
+					switch (opc) {
+					case 1:
+						insertAreas(indexToData);
+						insertCrime_Types(indexToData);
+						
+						insertPremises(indexToData);
+						insertWeapons(indexToData);
+						insertStatuses(indexToData);
+						
+						break;
+					case 2:
+						insertVictims(indexToData);
+						
+						insertAddresses(indexToData);
+						
+						insertCrimes(indexToData);
+						break;
+
+					default:
+						System.out.println("Valor no valido");
+						break;
+					}
 					
 					line = br.readLine();
 				}
@@ -178,9 +209,12 @@ public class DBLoader {
 	
 	private static void insertPremises(Map<String, String> indexToData) {
 		try {
-			psPremises.setInt(1, Integer.parseInt(indexToData.get("Premise Code")));
-			psPremises.setString(2, indexToData.get("Premise Description"));
-			psPremises.executeUpdate();
+			if (!indexToData.get("Premise Code").equals("")) {
+				psPremises.setInt(1, Integer.parseInt(indexToData.get("Premise Code")));
+				psPremises.setString(2, indexToData.get("Premise Description"));
+				psPremises.executeUpdate();
+			}
+			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -196,11 +230,11 @@ public class DBLoader {
 	
 	private static void insertWeapons(Map<String, String> indexToData) {
 		try {
-			// ARREGLAR ESTO
-			psWeapons.setInt(1, Integer.parseInt(indexToData.get("Weapon Used Code")));
-			// ARREGLAR ESTO
-			psWeapons.setString(2, indexToData.get("Weapon Description"));
-			psWeapons.executeUpdate();
+			if (!indexToData.get("Weapon Used Code").equals("")) {
+				psWeapons.setInt(1, Integer.parseInt(indexToData.get("Weapon Used Code")));
+				psWeapons.setString(2, indexToData.get("Weapon Description"));
+				psWeapons.executeUpdate();
+			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -257,17 +291,43 @@ public class DBLoader {
 	private static void insertCrimes(Map<String, String> indexToData) {
 		try {
 			psCrimes.setInt(1,Integer.parseInt(indexToData.get("DR Number")));
-			psCrimes.setDate(2, Date.valueOf(indexToData.get("Date Reported")));
-			psCrimes.setDate(3, Date.valueOf(indexToData.get("Date Occurred")));
-			psCrimes.setTime(4, Time.valueOf(indexToData.get("Time Occurred")));
+			
+			DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			LocalDate dateReported = LocalDate.parse(indexToData.get("Date Reported"), dtfDate);
+			LocalDate dateOcurred = LocalDate.parse(indexToData.get("Date Occurred"), dtfDate);
+			
+			psCrimes.setDate(2, Date.valueOf(dateReported));
+			psCrimes.setDate(3, Date.valueOf(dateOcurred));
+			
+			DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HHmm");
+			LocalTime timeOcurred = LocalTime.parse(indexToData.get("Time Occurred"), dtfTime);
+			
+			psCrimes.setTime(4, Time.valueOf(timeOcurred));
+			
 			psCrimes.setInt(5, Integer.parseInt(indexToData.get("Area ID")));
 			psCrimes.setInt(6, Integer.parseInt(indexToData.get("Crime Code 1")));
-			psCrimes.setInt(7, Integer.parseInt(indexToData.get("Crime Code 2")));
-			psCrimes.setInt(8, Integer.parseInt(indexToData.get("Crime Code 3")));
-			psCrimes.setInt(9, Integer.parseInt(indexToData.get("Crime Code 4")));
+			if (!indexToData.get("Crime Code 2").equals("")) {
+				psCrimes.setInt(7, Integer.parseInt(indexToData.get("Crime Code 2")));
+			} else {
+				psCrimes.setNull(7, java.sql.Types.INTEGER);
+			}
+			if (!indexToData.get("Crime Code 3").equals("")) {
+				psCrimes.setInt(8, Integer.parseInt(indexToData.get("Crime Code 3")));
+			} else {
+				psCrimes.setNull(8, java.sql.Types.INTEGER);
+			}
+			if (!indexToData.get("Crime Code 4").equals("")) {
+				psCrimes.setInt(9, Integer.parseInt(indexToData.get("Crime Code 4")));
+			} else {
+				psCrimes.setNull(9, java.sql.Types.INTEGER);
+			}
+			
 			psCrimes.setInt(10, Integer.parseInt(indexToData.get("VictimID")));
+			
 			psCrimes.setInt(11, Integer.parseInt(indexToData.get("Premise Code")));
-			psCrimes.setInt(12, Integer.parseInt(indexToData.get("Weapon Used Code")));
+			if (!indexToData.get("Weapon Used Code").equals("")) {
+				psCrimes.setInt(12, Integer.parseInt(indexToData.get("Weapon Used Code")));
+			}
 			psCrimes.setString(13, indexToData.get("Status Code"));
 			psCrimes.setInt(14, Integer.parseInt(indexToData.get("AddressID")));
 			psCrimes.executeUpdate();
