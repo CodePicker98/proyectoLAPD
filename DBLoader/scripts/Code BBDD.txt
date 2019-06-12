@@ -1,3 +1,7 @@
+DROP DATABASE pruebaladp;
+
+CREATE DATABASE pruebaladp;
+
 CREATE DATABASE proyectoLAPD;
 
 CREATE TABLE Areas (id INT,
@@ -34,9 +38,9 @@ CREATE TABLE Statuses (code CHAR(2),
 					  );
 					  
 CREATE TABLE Addresses (id SERIAL, 
-						address_street VARCHAR(30),
-						cross_street VARCHAR(20),
-						geo_location VARCHAR(30),
+						address_street VARCHAR(100),
+						cross_street VARCHAR(100),
+						geo_location VARCHAR(100),
 						reporting_district INT,
 						CONSTRAINT Adres_id_PK PRIMARY KEY (id)
 					   );
@@ -44,7 +48,7 @@ CREATE TABLE Addresses (id SERIAL,
 CREATE TABLE Crimes (dr_number INT,
 					 date_reported DATE NOT NULL,
 					 date_ocurred DATE NOT NULL,
-					 time_ocurred INT NOT NULL, 
+					 time_ocurred TIME NOT NULL, 
 					 area INT,
 					 crime_code_1 INT NOT NULL,
 					 crime_code_2 INT,
