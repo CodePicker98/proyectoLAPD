@@ -66,7 +66,7 @@ PebbleEngine engine = new PebbleEngine.Builder().build();
 			
 			String outputBW = writer.toString();
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\pruebaHTMLCrimen.html"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("templates\\HTMLCrime\\pruebaHTMLCrimen.html"));
 			bw.write(outputBW);
 			bw.close();
 			
