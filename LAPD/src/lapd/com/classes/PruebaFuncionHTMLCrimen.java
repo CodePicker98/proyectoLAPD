@@ -1,19 +1,28 @@
-package lapd.com.pebbletemplatehtml;
+package lapd.com.classes;
 
-import java.io.*;
-import java.util.*;
-import com.mitchellbosecke.pebble.*;
-import com.mitchellbosecke.pebble.template.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
-public class HTMLCrimen {
+import com.mitchellbosecke.pebble.PebbleEngine;
+import com.mitchellbosecke.pebble.template.PebbleTemplate;
+
+public class PruebaFuncionHTMLCrimen {
 
 	public static void main(String[] args) {
+		
+		DataAccessObject dao = new DataAccessObject();
+		
+		dao.generateHTMLCrime(011401303);
 
-		PebbleEngine engine = new PebbleEngine.Builder().build();
+PebbleEngine engine = new PebbleEngine.Builder().build();
 		
 		try {
 			
-			PebbleTemplate compiledTemplate = engine.getTemplate("templates\\HTMLCrimeArea\\HTMLCrimen.html");
+			PebbleTemplate compiledTemplate = engine.getTemplate("templates\\HTMLCrime\\HTMLCrimen.html");
 			
 			Writer writer = new StringWriter();
 			
@@ -65,7 +74,7 @@ public class HTMLCrimen {
 			
 			e.printStackTrace();
 			
-		}
+		}	
 		
 	}
 
