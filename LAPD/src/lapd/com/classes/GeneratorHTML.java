@@ -19,7 +19,7 @@ import lapd.com.classes.Victim.TypeDescent;
 
 public class GeneratorHTML {
 	
-		public void generateHTMLCrime (int crimeNumber) {
+	public void generateHTMLCrime (int crimeNumber) {
 		
 		ArrayList <CrimeType> alc = new ArrayList<>();
 		
