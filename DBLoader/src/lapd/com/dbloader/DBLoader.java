@@ -47,7 +47,7 @@ public class DBLoader {
 			psInit2.executeUpdate();
 			a.close();
 			*/
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			//Definicion inserts
 			psAreas = c.prepareStatement("INSERT INTO areas VALUES(?,?)");
 			psCrime_Types = c.prepareStatement("INSERT INTO crime_types VALUES(?,?,?)");
