@@ -2,7 +2,7 @@ package lapd.com.classes;
 
 public class Status {
 	
-	enum TypeStatus {
+	public enum TypeStatus {
 		IC,
 		AA,
 		AO,
@@ -13,7 +13,7 @@ public class Status {
 	private TypeStatus code;
 	private String description;
 	
-	Status(TypeStatus code, String description){
+	public Status(TypeStatus code, String description){
 		this.code = code;
 		this.description = description;
 	}

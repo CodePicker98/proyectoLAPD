@@ -6,7 +6,7 @@ public class CrimeType {
 	private String description;
 	private String moCode;
 	
-	CrimeType(int code, String description, String moCode){
+	public CrimeType(int code, String description, String moCode){
 		this.code = code;
 		this.description = description;
 		this.moCode = moCode;

@@ -60,7 +60,7 @@
 			
 			{% for crimeType in crimeTypes %}
 			
-				{% if contador == 1 or contador == 3 %}
+				{% if contador % 2 != 0 %}
 					<div class = "row" id = "estilo1">
 				{% else %}
 					<div class = "row" id = "estilo2">

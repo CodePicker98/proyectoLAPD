@@ -19,7 +19,7 @@ public class Crime {
 	private Victim victim;
 	private Weapon weapon;
 	
-	Crime (int drNumber, LocalDate dateReported, LocalDate dateOcurred, LocalTime timeOcurred, Address address, Area area, ArrayList<CrimeType> crimeTypes, Premise premise, Status status, Victim victim) {
+	public Crime (int drNumber, LocalDate dateReported, LocalDate dateOcurred, LocalTime timeOcurred, Address address, Area area, ArrayList<CrimeType> crimeTypes, Premise premise, Status status, Victim victim) {
 		
 		this.drNumber = drNumber;
 		this.dateReported = dateReported;
@@ -34,7 +34,7 @@ public class Crime {
 		
 	}
 	
-	Crime (int drNumber, LocalDate dateReported, LocalDate dateOcurred, LocalTime timeOcurred, Address address, Area area, ArrayList<CrimeType> crimeTypes, Premise premise, Status status, Victim victim, Weapon weapon) {
+	public Crime (int drNumber, LocalDate dateReported, LocalDate dateOcurred, LocalTime timeOcurred, Address address, Area area, ArrayList<CrimeType> crimeTypes, Premise premise, Status status, Victim victim, Weapon weapon) {
 		
 		this(drNumber, dateReported, dateOcurred, timeOcurred, address, area, crimeTypes, premise, status, victim);
 		this.weapon = weapon;

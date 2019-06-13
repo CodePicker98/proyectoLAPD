@@ -8,7 +8,7 @@ public class Address {
 	private String geoLocation;
 	private int reportingDistrict;
 	
-	Address (int id, String adressStreet, String geoLocation, int reportingDistrict) {
+	public Address (int id, String adressStreet, String geoLocation, int reportingDistrict) {
 		
 		this.id = id;
 		this.addressStreet = adressStreet;
@@ -17,7 +17,7 @@ public class Address {
 		
 	}
 	
-	Address (int id, String adressStreet, String crossStreet, String geoLocation, int reportingDistrict) {
+	public Address (int id, String adressStreet, String crossStreet, String geoLocation, int reportingDistrict) {
 	
 		this(id, adressStreet, geoLocation, reportingDistrict);
 		this.crossStreet = crossStreet;

@@ -17,9 +17,9 @@ import lapd.com.classes.Status.TypeStatus;
 import lapd.com.classes.Victim.Gender;
 import lapd.com.classes.Victim.TypeDescent;
 
-public class PruebaFuncionHTMLCrimen {
-
-	public static void main(String[] args) {
+public class GeneratorHTML {
+	
+		public void generateHTMLCrime (int crimeNumber) {
 		
 		ArrayList <CrimeType> alc = new ArrayList<>();
 		
@@ -38,7 +38,7 @@ public class PruebaFuncionHTMLCrimen {
 		Status s = c.getStatus();
 		Victim v = c.getVictim();
 		Weapon w = c.getWeapon();
-
+	
 		PebbleEngine engine = new PebbleEngine.Builder().build();
 		
 		try {
@@ -66,7 +66,7 @@ public class PruebaFuncionHTMLCrimen {
 			
 			String outputBW = writer.toString();
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter("templates\\HTMLCrime\\pruebaHTMLCrimen.html"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\pruebaHTMLCrimen.html"));
 			bw.write(outputBW);
 			bw.close();
 			
@@ -77,7 +77,9 @@ public class PruebaFuncionHTMLCrimen {
 			e.printStackTrace();
 			
 		}
-		
-	}
 
-}
+	}
+		
+	public void generateHTMLArea (int areaNumber) {}
+
+}		
