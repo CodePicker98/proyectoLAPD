@@ -32,7 +32,9 @@ public class DBLoader {
 	private static PreparedStatement psStatuses;
 	private static PreparedStatement psAddresses;
 	private static PreparedStatement psCrimes;
-	
+	//
+	private static PreparedStatement psCheckCrime_Types;
+	//
 	private static int contNoInsert = 0;;
 	
 	public static void main(String[] args) {
@@ -45,7 +47,7 @@ public class DBLoader {
 			psInit2.executeUpdate();
 			a.close();
 			*/
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pruebalapd", "postgres", "root");
+			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
 			//Definicion inserts
 			psAreas = c.prepareStatement("INSERT INTO areas VALUES(?,?)");
 			psCrime_Types = c.prepareStatement("INSERT INTO crime_types VALUES(?,?,?)");
@@ -55,12 +57,17 @@ public class DBLoader {
 			psStatuses = c.prepareStatement("INSERT INTO statuses VALUES(?,?)");
 			psAddresses = c.prepareStatement("INSERT INTO addresses VALUES(DEFAULT,?,?,?,?) RETURNING id");
 			psCrimes = c.prepareStatement("INSERT INTO crimes VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			
+			//
+			psCheckCrime_Types = c.prepareStatement("SELECT * FROM crime_types WHERE code = ?");
+			//
 			
 			ArrayList<String> index = new ArrayList<>();
 			Map<String, String> indexToData = new HashMap<>();
-			BufferedReader br = new BufferedReader(new FileReader("files\\Crime_Data_from_2010_to_PresentCut.csv"));
+			BufferedReader br = new BufferedReader(new FileReader("files\\Crime_Data_from_2010_to_Present.csv"));
 			String line = br.readLine();
+			
+			int cont = 0;
+			int contView = 0;
 			
 			Scanner sc = new Scanner(System.in);
 			System.out.print("Si es la primera vez que lo ejecutas introduce 1, si es la segunda vez introduce 2: ");
@@ -106,7 +113,6 @@ public class DBLoader {
 					case 1:
 						insertAreas(indexToData);
 						insertCrime_Types(indexToData);
-						
 						insertPremises(indexToData);
 						insertWeapons(indexToData);
 						insertStatuses(indexToData);
@@ -114,9 +120,8 @@ public class DBLoader {
 						break;
 					case 2:
 						insertVictims(indexToData);
-						
 						insertAddresses(indexToData);
-						
+						checkCrime_Types(indexToData);
 						insertCrimes(indexToData);
 						break;
 
@@ -126,9 +131,14 @@ public class DBLoader {
 					}
 					
 					line = br.readLine();
+					cont++;
+					if (cont % 5000 == 0) {
+						contView++;
+						System.out.println("Progreso: " + contView + "%");
+					}
 				}
 				
-				line = br.readLine();
+				//line = br.readLine();
 			}
 			br.close();
 			c.close();
@@ -305,7 +315,12 @@ public class DBLoader {
 			psCrimes.setTime(4, Time.valueOf(timeOcurred));
 			
 			psCrimes.setInt(5, Integer.parseInt(indexToData.get("Area ID")));
-			psCrimes.setInt(6, Integer.parseInt(indexToData.get("Crime Code 1")));
+			if (!indexToData.get("Crime Code 1").equals("")) {
+				psCrimes.setInt(6, Integer.parseInt(indexToData.get("Crime Code 1")));
+			} else {
+				psCrimes.setInt(6, Integer.parseInt(indexToData.get("Crime Code")));
+			}
+			
 			if (!indexToData.get("Crime Code 2").equals("")) {
 				psCrimes.setInt(7, Integer.parseInt(indexToData.get("Crime Code 2")));
 			} else {
@@ -324,13 +339,59 @@ public class DBLoader {
 			
 			psCrimes.setInt(10, Integer.parseInt(indexToData.get("VictimID")));
 			
-			psCrimes.setInt(11, Integer.parseInt(indexToData.get("Premise Code")));
+			if (!indexToData.get("Premise Code").equals("")) {
+				psCrimes.setInt(11, Integer.parseInt(indexToData.get("Premise Code")));
+			} else {
+				psCrimes.setNull(11, java.sql.Types.INTEGER);
+			}
+			
 			if (!indexToData.get("Weapon Used Code").equals("")) {
 				psCrimes.setInt(12, Integer.parseInt(indexToData.get("Weapon Used Code")));
+			} else {
+				psCrimes.setNull(12, java.sql.Types.INTEGER);
 			}
 			psCrimes.setString(13, indexToData.get("Status Code"));
 			psCrimes.setInt(14, Integer.parseInt(indexToData.get("AddressID")));
 			psCrimes.executeUpdate();
+		} catch (NumberFormatException e) {
+			System.out.println(indexToData.get("DR Number"));
+			e.printStackTrace();
+		} catch (SQLException e) {
+			if(e.getSQLState().equals("23505")) {
+				contNoInsert++;
+			} else {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	private static void checkCrime_Types(Map<String, String> indexToData) {
+		try {
+			ArrayList<String> al = new ArrayList<>();
+			String CrimeCode = indexToData.get("Crime Code 1");
+			al.add(CrimeCode);
+			CrimeCode = indexToData.get("Crime Code 2");
+			al.add(CrimeCode);
+			CrimeCode = indexToData.get("Crime Code 3");
+			al.add(CrimeCode);
+			CrimeCode = indexToData.get("Crime Code 4");
+			al.add(CrimeCode);
+			for (String code : al) {
+				if (!code.equals("")) {
+					psCheckCrime_Types.setInt(1, Integer.parseInt(code));
+					ResultSet rs = psCheckCrime_Types.executeQuery();
+					if (!rs.next()) {
+						psCrime_Types.setInt(1, Integer.parseInt(code));
+						psCrime_Types.setString(2, "UNKNOWN");
+						String[] strings = new String[10];
+						Array arrayString = c.createArrayOf("text", strings);
+						psCrime_Types.setArray(3, arrayString);
+						psCrime_Types.executeUpdate();
+					}
+				}
+			}
+			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,7 +1,3 @@
-DROP DATABASE pruebaladp;
-
-CREATE DATABASE pruebaladp;
-
 CREATE DATABASE proyectoLAPD;
 
 CREATE TABLE Areas (id INT,
@@ -55,7 +51,7 @@ CREATE TABLE Crimes (dr_number INT,
 					 crime_code_3 INT,
 					 crime_code_4 INT,
 					 victim INT NOT NULL,
-					 premise NUMERIC(3,0) NOT NULL,
+					 premise NUMERIC(3,0),
 					 weapon INT,
 					 status CHAR(2) NOT NULL,
 					 address INT NOT NULL,
