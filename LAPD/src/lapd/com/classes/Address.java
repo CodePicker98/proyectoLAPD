@@ -3,7 +3,7 @@ package lapd.com.classes;
 public class Address {
 
 	private int id;
-	private String adressStreet;
+	private String addressStreet;
 	private String crossStreet;
 	private String geoLocation;
 	private int reportingDistrict;
@@ -11,7 +11,7 @@ public class Address {
 	Address (int id, String adressStreet, String geoLocation, int reportingDistrict) {
 		
 		this.id = id;
-		this.adressStreet = adressStreet;
+		this.addressStreet = adressStreet;
 		this.geoLocation = geoLocation;
 		this.reportingDistrict = reportingDistrict;
 		
@@ -27,8 +27,8 @@ public class Address {
 	public int getId() {
 		return id;
 	}
-	public String getAdressStreet() {
-		return adressStreet;
+	public String getAddressStreet() {
+		return addressStreet;
 	}
 	public String getCrossStreet() {
 		return crossStreet;

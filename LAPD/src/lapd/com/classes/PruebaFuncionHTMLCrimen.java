@@ -4,21 +4,42 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
 
+import lapd.com.classes.Status.TypeStatus;
+import lapd.com.classes.Victim.Gender;
+import lapd.com.classes.Victim.TypeDescent;
+
 public class PruebaFuncionHTMLCrimen {
 
 	public static void main(String[] args) {
 		
-		DataAccessObject dao = new DataAccessObject();
+		ArrayList <CrimeType> alc = new ArrayList<>();
 		
-		dao.generateHTMLCrime(011401303);
+		//Los add del alc no hrás falta ponerlos
+		alc.add(new CrimeType(3, "No description", "748"));
+		alc.add(new CrimeType(4, "Yes description", "859 743"));
+		alc.add(new CrimeType(5, "NoYes description", "748 345 123"));
+		alc.add(new CrimeType(6, "YesNo description", "859"));
+		
+		//El crimen se obtendrá de la base de datos, no lo pasaremos
+		Crime c = new Crime(01, LocalDate.now(), LocalDate.now(), LocalTime.now(), new Address(1, "calle", "calle cruce", "location", 456), new Area (2, "Broadway"), alc, new Premise(56, "LaPremisa"), new Status (TypeStatus.JO, "Juv Other"), new Victim(78, -6, Gender.F, TypeDescent.B), new Weapon (34, "Knife"));
+		
+		Address ad = c.getAddress();
+		Area ar = c.getArea();
+		Premise p = c.getPremise();
+		Status s = c.getStatus();
+		Victim v = c.getVictim();
+		Weapon w = c.getWeapon();
 
-PebbleEngine engine = new PebbleEngine.Builder().build();
+		PebbleEngine engine = new PebbleEngine.Builder().build();
 		
 		try {
 			
@@ -27,40 +48,19 @@ PebbleEngine engine = new PebbleEngine.Builder().build();
 			Writer writer = new StringWriter();
 			
 			Map <String, Object> contextForWrite = new HashMap<>();
+		
+			contextForWrite.put("drCode", c.getDrNumber());
+			contextForWrite.put("date1", c.getDateReported());
+			contextForWrite.put("date2", c.getDateOcurred());
+			contextForWrite.put("hour", c.getTimeOcurred());
 			
-			contextForWrite.put("drCode", "1");
-			contextForWrite.put("date1", "2");
-			contextForWrite.put("date2", "3");
-			contextForWrite.put("hour", "4");
-			contextForWrite.put("areaID", "5");
-			contextForWrite.put("areaName", "6");
-			contextForWrite.put("crimeCode1", "7");
-			contextForWrite.put("crimeDescription1", "8");
-			contextForWrite.put("crimeMO1", "9");
-			contextForWrite.put("crimeCode2", "10");
-			contextForWrite.put("crimeDescription2", "11");
-			contextForWrite.put("crimeMO2", "12");
-			contextForWrite.put("crimeCode3", "13");
-			contextForWrite.put("crimeDescription3", "14");
-			contextForWrite.put("crimeMO3", "15");
-			contextForWrite.put("crimeCode4", "16");
-			contextForWrite.put("crimeDescription4", "17");
-			contextForWrite.put("crimeMO4", "18");
-			contextForWrite.put("victimID", "19");
-			contextForWrite.put("victimAge", "20");
-			contextForWrite.put("victimSex", "21");
-			contextForWrite.put("victimDescent", "22");
-			contextForWrite.put("premiseCode", "23");
-			contextForWrite.put("premiseDescription", "24");
-			contextForWrite.put("weaponCode", "25");
-			contextForWrite.put("weaponDescription", "26");
-			contextForWrite.put("statusCode", "27");
-			contextForWrite.put("statusDescription", "28");
-			contextForWrite.put("adressID", "29");
-			contextForWrite.put("adressStreet", "30");
-			contextForWrite.put("adressCrossStreet", "31");
-			contextForWrite.put("adressGeoLocation", "32");
-			contextForWrite.put("adressReportingDistrict", "33");
+			contextForWrite.put("address", ad);
+			contextForWrite.put("area", ar);
+			contextForWrite.put("premise", p);
+			contextForWrite.put("status", s);
+			contextForWrite.put("victim", v);
+			contextForWrite.put("weapon", w);
+			contextForWrite.put("crimeTypes", alc);
 			
 			compiledTemplate.evaluate(writer, contextForWrite);
 			
@@ -70,11 +70,13 @@ PebbleEngine engine = new PebbleEngine.Builder().build();
 			bw.write(outputBW);
 			bw.close();
 			
+			System.out.println("HTML del Crimen generado correctamente...");
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 			
-		}	
+		}
 		
 	}
 

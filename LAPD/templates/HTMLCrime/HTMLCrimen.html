@@ -30,59 +30,51 @@
 		
 			<div class = "row" id = "estilo1">
 				<div class = "col col-sm-2" id = "estilo3">Area</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ areaID }}</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ areaName }}</div>
+				<div class = "col col-sm-3" id = "estilo3">{{ area.id }}</div>
+				<div class = "col col-sm-3" id = "estilo3">{{ area.name }}</div>
 				<div class = "col col-sm-4" id = "estilo3"></div>
 			</div>
 
 			<div class = "row" id = "estilo2">
 				<div class = "col col-sm-2" id = "estilo3">Premise</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ premiseCode }}</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ premiseDescription }}</div>
+				<div class = "col col-sm-3" id = "estilo3">{{ premise.code }}</div>
+				<div class = "col col-sm-3" id = "estilo3">{{ premise.description }}</div>
 				<div class = "col col-sm-4" id = "estilo3"></div>
 			</div>
 
 			<div class = "row" id = "estilo1">
 				<div class = "col col-sm-2" id = "estilo3">Weapon</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ weaponCode }}</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ weaponDescription }}</div>
+				<div class = "col col-sm-3" id = "estilo3">{{ weapon.code }}</div>
+				<div class = "col col-sm-3" id = "estilo3">{{ weapon.description }}</div>
 				<div class = "col col-sm-4" id = "estilo3"></div>
 			</div>
 
 			<div class = "row" id = "estilo2">
 				<div class = "col col-sm-2" id = "estilo3">Status</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ statusCode }}</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ statusDescription }}</div>
+				<div class = "col col-sm-3" id = "estilo3">{{ status.code }}</div>
+				<div class = "col col-sm-3" id = "estilo3">{{ status.description }}</div>
 				<div class = "col col-sm-4" id = "estilo3"></div>
 			</div>
-
-			<div class = "row" id = "estilo1">
-				<div class = "col col-sm-2" id = "estilo3">Crime 1</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ crimeCode1 }}</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ crimeDescription1 }}</div>
-				<div class = "col col-sm-4" id = "estilo3">MO Code: {{ crimeMO1 }}</div>
-			</div>
-
-			<div class = "row" id = "estilo2">
-				<div class = "col col-sm-2" id = "estilo3">Crime 2</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ crimeCode2 }}</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ crimeDescription2 }}</div>
-				<div class = "col col-sm-4" id = "estilo3">MO Code: {{ crimeMO2 }}</div>
-			</div>
-
-			<div class = "row" id = "estilo1">
-				<div class = "col col-sm-2" id = "estilo3">Crime 3</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ crimeCode3 }}</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ crimeDescription3 }}</div>
-				<div class = "col col-sm-4" id = "estilo3">MO Code: {{ crimeMO3 }}</div>
-			</div>
-
-			<div class = "row" id = "estilo2">
-				<div class = "col col-sm-2" id = "estilo3">Crime 4</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ crimeCode4 }}</div>
-				<div class = "col col-sm-3" id = "estilo3">{{ crimeDescription4 }}</div>
-				<div class = "col col-sm-4" id = "estilo3">MO Code: {{ crimeMO4 }}</div>
-			</div>
+			
+			{% set contador = 1 %}
+			
+			{% for crimeType in crimeTypes %}
+			
+				{% if contador == 1 or contador == 3 %}
+					<div class = "row" id = "estilo1">
+				{% else %}
+					<div class = "row" id = "estilo2">
+				{% endif%}
+				
+					<div class = "col col-sm-2" id = "estilo3">Crime {{ contador }}</div>
+					<div class = "col col-sm-3" id = "estilo3">{{ crimeType.code }}</div>
+					<div class = "col col-sm-3" id = "estilo3">{{ crimeType.description }}</div>
+					<div class = "col col-sm-4" id = "estilo3">MO Codes: {{ crimeType.moCode }}</div>
+				</div>
+				
+				{% set contador = contador + 1 %}
+			
+			{% endfor%}
 
 			<div class = "row" id = "estilo4">
 				<div class = "col col-sm-2" id = "estilo3">More Information</div>
@@ -92,14 +84,14 @@
 
 			<div class = "row" id = "estilo1">
 				<div class = "col col-sm-2" id = "estilo3">Victim</div>
-				<div class = "col col-sm-2" id = "estilo3">{{ victimID }}</div>
-				<div class = "col col-sm-8" id = "estilo3">Age: {{ victimAge }}; Sex: {{ victimSex }}; Descent: {{ victimDescent }}</div>
+				<div class = "col col-sm-2" id = "estilo3">{{ victim.id }}</div>
+				<div class = "col col-sm-8" id = "estilo3">Age: {{ victim.age }}; Sex: {{ victim.sex }}; Descent: {{ victim.descent }}</div>
 			</div>
 
 			<div class = "row" id = "estilo2">
 				<div class = "col col-sm-2" id = "estilo3">Adress</div>
-				<div class = "col col-sm-2" id = "estilo3">{{ adressID}}</div>
-				<div class = "col col-sm-8" id = "estilo3">Street: {{ adressStreet }}; Cross Street: {{ adressCrossStreet }}; Location: {{ adressGeoLocation }}; Reporting District: {{ adressReportingDistrict }}</div>
+				<div class = "col col-sm-2" id = "estilo3">{{ address.id}}</div>
+				<div class = "col col-sm-8" id = "estilo3">Street: {{ address.addressStreet }}; Cross Street: {{ address.crossStreet }}; Location: {{ address.geoLocation }}; Reporting District: {{ address.reportingDistrict }}</div>
 			</div>
 
 			
