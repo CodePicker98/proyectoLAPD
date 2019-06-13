@@ -32,21 +32,11 @@ public class DBLoader {
 	private static PreparedStatement psStatuses;
 	private static PreparedStatement psAddresses;
 	private static PreparedStatement psCrimes;
-	//
 	private static PreparedStatement psCheckCrime_Types;
-	//
 	private static int contNoInsert = 0;;
 	
 	public static void main(String[] args) {
 		try {
-			/*QUITAR LUEGO
-			Connection a = DriverManager.getConnection("jdbc:postgresql://localhost:5432/dam", "postgres", "root");
-			PreparedStatement psInit1 = a.prepareStatement("DROP DATABASE pruebalapd");
-			PreparedStatement psInit2 = a.prepareStatement("CREATE DATABASE pruebalapd");
-			psInit1.executeUpdate();
-			psInit2.executeUpdate();
-			a.close();
-			*/
 			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			//Definicion inserts
 			psAreas = c.prepareStatement("INSERT INTO areas VALUES(?,?)");
@@ -57,9 +47,7 @@ public class DBLoader {
 			psStatuses = c.prepareStatement("INSERT INTO statuses VALUES(?,?)");
 			psAddresses = c.prepareStatement("INSERT INTO addresses VALUES(DEFAULT,?,?,?,?) RETURNING id");
 			psCrimes = c.prepareStatement("INSERT INTO crimes VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			//
 			psCheckCrime_Types = c.prepareStatement("SELECT * FROM crime_types WHERE code = ?");
-			//
 			
 			ArrayList<String> index = new ArrayList<>();
 			Map<String, String> indexToData = new HashMap<>();
@@ -106,7 +94,6 @@ public class DBLoader {
 							st.nextToken();
 						}
 						
-						//System.out.println(index.get(i) + " " + indexToData.get(index.get(i)));
 					}
 					//Llamadas a las funciones insert
 					switch (opc) {
@@ -137,8 +124,6 @@ public class DBLoader {
 						System.out.println("Progreso: " + contView + "%");
 					}
 				}
-				
-				//line = br.readLine();
 			}
 			br.close();
 			c.close();
@@ -172,7 +157,6 @@ public class DBLoader {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	private static void insertCrime_Types(Map<String, String> indexToData) {
@@ -193,7 +177,6 @@ public class DBLoader {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	private static void insertVictims(Map<String, String> indexToData) {
@@ -214,7 +197,6 @@ public class DBLoader {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	private static void insertPremises(Map<String, String> indexToData) {
@@ -224,7 +206,6 @@ public class DBLoader {
 				psPremises.setString(2, indexToData.get("Premise Description"));
 				psPremises.executeUpdate();
 			}
-			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -235,7 +216,6 @@ public class DBLoader {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	private static void insertWeapons(Map<String, String> indexToData) {
@@ -255,7 +235,6 @@ public class DBLoader {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	private static void insertStatuses(Map<String, String> indexToData) {
@@ -273,7 +252,6 @@ public class DBLoader {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	private static void insertAddresses(Map<String, String> indexToData) {
@@ -295,32 +273,25 @@ public class DBLoader {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	private static void insertCrimes(Map<String, String> indexToData) {
 		try {
 			psCrimes.setInt(1,Integer.parseInt(indexToData.get("DR Number")));
-			
 			DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 			LocalDate dateReported = LocalDate.parse(indexToData.get("Date Reported"), dtfDate);
 			LocalDate dateOcurred = LocalDate.parse(indexToData.get("Date Occurred"), dtfDate);
-			
 			psCrimes.setDate(2, Date.valueOf(dateReported));
 			psCrimes.setDate(3, Date.valueOf(dateOcurred));
-			
 			DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HHmm");
 			LocalTime timeOcurred = LocalTime.parse(indexToData.get("Time Occurred"), dtfTime);
-			
 			psCrimes.setTime(4, Time.valueOf(timeOcurred));
-			
 			psCrimes.setInt(5, Integer.parseInt(indexToData.get("Area ID")));
 			if (!indexToData.get("Crime Code 1").equals("")) {
 				psCrimes.setInt(6, Integer.parseInt(indexToData.get("Crime Code 1")));
 			} else {
 				psCrimes.setInt(6, Integer.parseInt(indexToData.get("Crime Code")));
 			}
-			
 			if (!indexToData.get("Crime Code 2").equals("")) {
 				psCrimes.setInt(7, Integer.parseInt(indexToData.get("Crime Code 2")));
 			} else {
@@ -336,15 +307,12 @@ public class DBLoader {
 			} else {
 				psCrimes.setNull(9, java.sql.Types.INTEGER);
 			}
-			
 			psCrimes.setInt(10, Integer.parseInt(indexToData.get("VictimID")));
-			
 			if (!indexToData.get("Premise Code").equals("")) {
 				psCrimes.setInt(11, Integer.parseInt(indexToData.get("Premise Code")));
 			} else {
 				psCrimes.setNull(11, java.sql.Types.INTEGER);
 			}
-			
 			if (!indexToData.get("Weapon Used Code").equals("")) {
 				psCrimes.setInt(12, Integer.parseInt(indexToData.get("Weapon Used Code")));
 			} else {
@@ -362,8 +330,7 @@ public class DBLoader {
 			} else {
 				e.printStackTrace();
 			}
-		}
-		
+		}	
 	}
 	
 	private static void checkCrime_Types(Map<String, String> indexToData) {
@@ -391,7 +358,6 @@ public class DBLoader {
 					}
 				}
 			}
-			
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -402,7 +368,5 @@ public class DBLoader {
 				e.printStackTrace();
 			}
 		}
-		
 	}
-
 }
