@@ -1,0 +1,78 @@
+CREATE DATABASE proyectolapd;
+
+CREATE TABLE Areas (id INT,
+				    name VARCHAR(20) NOT NULL,
+					CONSTRAINT Area_id_PK PRIMARY KEY (id)
+				   );
+
+CREATE TABLE Crime_Types (code INT,
+						  description VARCHAR(100) NOT NULL,
+						  mo_code CHAR(4)[],
+						  CONSTRAINT CT_code_PK PRIMARY KEY (code)
+						 );
+
+CREATE TABLE Victims (id SERIAL,
+					  age NUMERIC(3,0) NOT NULL,
+					  sex CHAR,
+					  descent CHAR,
+					  CONSTRAINT Victims_id_PK PRIMARY KEY (id)
+					 );
+
+CREATE TABLE Premises (code NUMERIC(3,0),
+					   description VARCHAR(100) NOT NULL,
+					   CONSTRAINT Prem_code_PK PRIMARY KEY (code)
+					  );
+					  
+CREATE TABLE Weapons (code INT,
+					  description VARCHAR(100) NOT NULL,
+					  CONSTRAINT Wea_code_PK PRIMARY KEY (code)
+					 );
+					 
+CREATE TABLE Statuses (code CHAR(2),
+					   description VARCHAR(20) NOT NULL,
+					   CONSTRAINT Stat_code_PK PRIMARY KEY (code)
+					  );
+					  
+CREATE TABLE Addresses (id SERIAL, 
+						address_street VARCHAR(100),
+						cross_street VARCHAR(100),
+						geo_location VARCHAR(100),
+						reporting_district INT,
+						CONSTRAINT Adres_id_PK PRIMARY KEY (id)
+					   );
+
+CREATE TABLE Crimes (dr_number INT,
+					 date_reported DATE NOT NULL,
+					 date_ocurred DATE NOT NULL,
+					 time_ocurred TIME NOT NULL, 
+					 area INT,
+					 crime_code_1 INT NOT NULL,
+					 crime_code_2 INT,
+					 crime_code_3 INT,
+					 crime_code_4 INT,
+					 victim INT NOT NULL,
+					 premise NUMERIC(3,0),
+					 weapon INT,
+					 status CHAR(2) NOT NULL,
+					 address INT NOT NULL,
+					 CONSTRAINT area_FK FOREIGN KEY (area) 
+					 REFERENCES Areas(id),
+					 CONSTRAINT crime_code_1_FK FOREIGN KEY (crime_code_1) 
+					 REFERENCES Crime_Types (code),
+					 CONSTRAINT crime_code_2_FK FOREIGN KEY (crime_code_2)
+					 REFERENCES Crime_Types (code),
+					 CONSTRAINT crime_code_3_FK FOREIGN KEY (crime_code_3)
+					 REFERENCES Crime_Types (code),
+					 CONSTRAINT crime_code_4_FK FOREIGN KEY (crime_code_4)
+					 REFERENCES Crime_Types (code),
+					 CONSTRAINT victim_FK FOREIGN KEY (victim)
+					 REFERENCES Victims (id),
+					 CONSTRAINT premise_FK FOREIGN KEY (premise)
+					 REFERENCES Premises (code),
+					 CONSTRAINT weapon_FK FOREIGN KEY (weapon) 
+					 REFERENCES Weapons (code),
+					 CONSTRAINT status_FK FOREIGN KEY (status) 
+					 REFERENCES Statuses (code),
+					 CONSTRAINT adress_FK FOREIGN KEY (address) 
+					 REFERENCES Addresses (id)
+					);
