@@ -24,6 +24,11 @@ public class CrimeType {
 		return moCode;
 	}
 	
-	
+	@Override
+	public String toString () {
+		
+		return code + ";" + description + ";" + moCode;
+		
+	}
 
 }

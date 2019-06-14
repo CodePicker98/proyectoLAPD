@@ -20,4 +20,11 @@ public class Weapon {
 		return description;
 	}
 	
+	@Override
+	public String toString () {
+		
+		return code + ";" + description;
+		
+	}
+	
 }

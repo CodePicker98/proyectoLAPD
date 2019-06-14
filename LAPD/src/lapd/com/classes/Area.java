@@ -18,4 +18,11 @@ public class Area {
 		return name;
 	}
 
+	@Override
+	public String toString () {
+		
+		return id + ";" + name;
+		
+	}
+	
 }

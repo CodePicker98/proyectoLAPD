@@ -85,4 +85,25 @@ public class Crime {
 		return weapon;
 	}
 	
+	@Override
+	public String toString () {
+		
+		String sentence = drNumber + "/" + dateReported + "/" + dateOcurred + "/" + timeOcurred + "/" + address + "/" + area + "/";
+		
+		for (int i = 0; i < crimeTypes.size(); i++) {
+			
+			sentence += crimeTypes.get(i) + "/";
+			
+		}
+		
+		sentence += premise + "/" + status + "/" + victim;
+		
+		if (weapon != null) {
+			sentence += "/" + weapon;
+		}
+		
+		return sentence;
+		
+	}
+	
 }
