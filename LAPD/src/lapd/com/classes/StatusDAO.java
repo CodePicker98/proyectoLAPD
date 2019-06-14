@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import lapd.com.classes.Status.TypeStatus;
+import java.util.*;
 
 public class StatusDAO {
 
@@ -15,7 +16,7 @@ public class StatusDAO {
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM statuses WHERE code = ?");
 			

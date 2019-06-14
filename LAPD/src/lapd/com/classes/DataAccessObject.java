@@ -15,7 +15,7 @@ public class DataAccessObject {
 		
 		try {
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
 			Statement s = c.createStatement();
 	
@@ -43,7 +43,7 @@ public class DataAccessObject {
 		
 		try {
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
 			Statement s = c.createStatement();
 	

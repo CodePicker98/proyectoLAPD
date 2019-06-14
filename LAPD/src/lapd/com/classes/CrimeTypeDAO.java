@@ -13,7 +13,7 @@ public class CrimeTypeDAO {
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM crime_types WHERE code = ?");
 			
