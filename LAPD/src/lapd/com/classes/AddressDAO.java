@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 public class AddressDAO {
 
-	public Address createAddress (int addressID) {
+	public static Address createAddress (int addressID) {
 		
 		Address ad = null;
 		

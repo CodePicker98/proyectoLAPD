@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 public class CrimeTypeDAO {
 
-	public CrimeType createCrimeType (int crimeTypeCode) {
+	public static CrimeType createCrimeType (int crimeTypeCode) {
 		
 		CrimeType ct = null;
 		

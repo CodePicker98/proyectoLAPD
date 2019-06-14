@@ -10,7 +10,7 @@ import java.util.*;
 
 public class StatusDAO {
 
-	public Status createStatus (int statusCode) {
+	public static Status createStatus (String statusCode) {
 		
 		Status st = null;
 		
@@ -20,7 +20,7 @@ public class StatusDAO {
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM statuses WHERE code = ?");
 			
-			ps.setInt(1, statusCode);
+			ps.setString(1, statusCode);
 			
 			ResultSet rs = ps.executeQuery();
 			

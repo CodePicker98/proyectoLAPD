@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 public class WeaponDAO {
 
-	public Weapon createWeapon (int weaponCode) {
+	public static Weapon createWeapon (int weaponCode) {
 		
 		Weapon we = null;
 		

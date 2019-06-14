@@ -9,7 +9,7 @@ import lapd.com.classes.Victim.TypeDescent;
 
 public class VictimDAO {
 
-	public Victim createVictim (int victimID) {
+	public static Victim createVictim (int victimID) {
 		
 		Victim vi = null;
 		
