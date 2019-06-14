@@ -30,8 +30,7 @@ public class PremiseDAO {
 			c.close();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.error(e.getMessage());
 		}
 		
 		return pre;

@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import lapd.com.classes.Status.TypeStatus;
-import java.util.*;
 
 public class StatusDAO {
 
@@ -42,9 +41,7 @@ public class StatusDAO {
 			c.close();
 			
 		} catch (Exception e) {
-			
-			e.printStackTrace();
-			
+			Log.error(e.getMessage());
 		}
 		
 		return st;
