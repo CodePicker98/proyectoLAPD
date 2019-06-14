@@ -40,4 +40,11 @@ public class Address {
 		return reportingDistrict;
 	}
 	
+	@Override
+	public String toString () {
+		
+		return id + ";" + addressStreet + ";" + crossStreet + ";" + geoLocation + ";" + reportingDistrict;
+		
+	}
+	
 }

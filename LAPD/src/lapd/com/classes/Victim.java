@@ -32,4 +32,10 @@ public class Victim {
 		return descent;
 	}
 	
+	@Override
+	public String toString () {
+		
+		return id + ";" + age + ";" + sex + ";" + descent;
+		
+	}
 }

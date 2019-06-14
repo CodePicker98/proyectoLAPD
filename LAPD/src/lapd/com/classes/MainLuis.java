@@ -34,25 +34,33 @@ public class MainLuis {
 			switch (opt) {
 				case 1:
 					
+					Iterator <Area> itA= AreaDAO.getAreas().iterator();
+					
+					while (itA.hasNext()) {
+						
+						System.out.println(itA.next().toString());
+						
+					}
 					
 					System.out.println("Do you want to list the crimes of an especific area?(\"s\"/anything)");
 					confirmation = sc.nextLine();
 					
-					Iterator <Area> it = dao.listAreas().iterator();
-					
-					while (it.hasNext()) {
-						
-						System.out.println(it);
-						
-					}
-					
 					if (confirmation.equals("s")) {
 						
 						System.out.println("Tell me the Area ID:");
-						String areaID = sc.nextLine();
+						int areaID = sc.nextInt();
+						
+						Iterator <Crime> itCA = dao.getCrimes(areaID).iterator();
+					
+						while (itCA.hasNext()) {
+							
+							System.out.println(itCA.next().toString());
+							
+						}
 						
 					}
 					
+					System.out.println("Returning to the menu...");					
 					break;
 				case 2:
 					
@@ -66,6 +74,7 @@ public class MainLuis {
 					String secondDate = sc.nextLine();
 					date2 = LocalDate.parse(secondDate, dtf);
 					
+					System.out.println("Returning to the menu...");
 					break;
 				case 3:
 					
@@ -73,13 +82,14 @@ public class MainLuis {
 					String drNumber = sc.nextLine();
 					
 					
-					
+					System.out.println("Returning to the menu...");
 					break;
 				case 4:
 					
 					System.out.println("Tell me the Area ID");
 					String idArea = sc.nextLine();
 					
+					System.out.println("Returning to the menu...");
 					break;
 				case 5:
 					System.out.println("Goodbye Agent.");
