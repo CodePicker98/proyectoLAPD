@@ -9,13 +9,13 @@ import lapd.com.classes.Victim.TypeDescent;
 
 public class VictimDAO {
 
-	public Victim createVictim (int victimID) {
+	public static Victim createVictim (int victimID) {
 		
 		Victim vi = null;
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM victims WHERE id = ?");
 			

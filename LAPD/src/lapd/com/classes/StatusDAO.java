@@ -9,17 +9,17 @@ import lapd.com.classes.Status.TypeStatus;
 
 public class StatusDAO {
 
-	public Status createStatus (int statusCode) {
+	public static Status createStatus (String statusCode) {
 		
 		Status st = null;
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM statuses WHERE code = ?");
 			
-			ps.setInt(1, statusCode);
+			ps.setString(1, statusCode);
 			
 			ResultSet rs = ps.executeQuery();
 			

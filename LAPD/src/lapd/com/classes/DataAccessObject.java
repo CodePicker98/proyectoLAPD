@@ -1,80 +1,84 @@
 package lapd.com.classes;
 
-import java.util.Map;
 import java.util.ArrayList;
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.sql.*;
 
 public class DataAccessObject {
-
-	private Map <Integer, ArrayList<Crime>> crimesList;
 	
-	public ArrayList <Area> listAreas () {
+	private int limit = 5;
+	private int startPoint;
+
+	public ArrayList <Crime> getCrimes (int areaNumber) {
 		
-		ArrayList <Area> aa = new ArrayList<>();
+		ArrayList <Crime> crimes = new ArrayList<>();
 		
 		try {
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
-			Statement s = c.createStatement();
-	
-			ResultSet rs = s.executeQuery("SELECT DISTINCT * FROM areas;");
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM crimes WHERE area = ? LIMIT ? OFFSET ?");
+			
+			ps.setInt(1, areaNumber);
+			
+			//cambiaremos el limite por el getNumLineas de la clase de config.
+			ps.setInt(2, limit);
+			ps.setInt(3, startPoint);
+			
+			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				
-				aa.add(new Area (rs.getInt("id"), rs.getString("name")));
-				
+				Crime crime = CrimeDAO.createCrime(rs.getInt("dr_number"));
+				crimes.add(crime);				
 			}
 			
+			startPoint += limit;
+			
+			c.close();
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 			
 		}
 		
-		return aa;
+		return crimes;
 		
 	}
 	
-	public ArrayList <Crime> listCrimesArea (int areaNumber) {
+	public ArrayList <Crime> getCrimes (LocalDate dateInit, LocalDate dateFinal) {
 		
-		ArrayList <Crime> ac = new ArrayList<>();
+		ArrayList <Crime> crimes = new ArrayList<>();
 		
 		try {
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM crimes WHERE date_ocurred BETWEEN ? AND ? LIMIT ? OFFSET ?");
 			
-			Statement s = c.createStatement();
-	
-			ResultSet rs = s.executeQuery("SELECT * FROM crimes WHERE area = " + areaNumber + ";");
+			ps.setDate(1, Date.valueOf(dateInit));
+			ps.setDate(2, Date.valueOf(dateFinal));
 			
-			while (rs.next()) {
-				
-				//ac.add(new Crime(rs.getInt("dr_number"), rs.getDate("date_reported"), rs.getDate("date_ocurred"), rs.getTime("time_ocurred"), rs.getInt("area"), rs.getInt("crime_code_1"), rs.getInt("crime_code_2"), rs.getInt("crime_code_3"), rs.getInt("crime_code_4"), rs.getInt("victim"), rs.getInt("premise"), rs.getInt("weapon"), rs.getString("status"), rs.getInt("address")));
-				
+			//cambiaremos el limite por el getNumLineas de la clase de config.
+			ps.setInt(3, limit);
+			ps.setInt(4, startPoint);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Crime crime = CrimeDAO.createCrime(rs.getInt("dr_number"));
+				crimes.add(crime);	
 			}
 			
-		} catch (Exception e) {
+			startPoint += limit;
 			
+			c.close();
+		} catch (SQLException e) {
 			e.printStackTrace();
-			
 		}
-		
-		return ac;
+		return crimes;
 		
 	}
 	
-	public ArrayList <Crime> getCrimesDates (LocalTime date1, LocalTime date2) {
-		
-		ArrayList <Crime> a = new ArrayList<>();
-		
-		return a;
-		
+	public void resetStartPoint() {
+		startPoint = 0;
 	}
-
-	public Map<Integer, ArrayList<Crime>> getCrimesList() {
-		return crimesList;
-	}
-	
 }

@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 
 public class WeaponDAO {
 
-	public Weapon createWeapon (int weaponCode) {
+	public static Weapon createWeapon (int weaponCode) {
 		
 		Weapon we = null;
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM weapons WHERE code = ?");
 			

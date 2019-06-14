@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 
 public class AddressDAO {
 
-	public Address createAddress (int addressID) {
+	public static Address createAddress (int addressID) {
 		
 		Address ad = null;
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectoLAPD", "postgres", "root");
+			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM addresses WHERE id = ?");
 			
