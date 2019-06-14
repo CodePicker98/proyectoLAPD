@@ -258,7 +258,7 @@ public class DBLoader {
 		try {
 			psAddresses.setString(1,indexToData.get("Address"));
 			psAddresses.setString(2, indexToData.get("Cross Street"));
-			psAddresses.setString(3, indexToData.get("Location"));
+			psAddresses.setString(3, indexToData.get("Location "));
 			psAddresses.setInt(4, Integer.parseInt(indexToData.get("Reporting District")));
 			ResultSet rs = psAddresses.executeQuery();
 			rs.next();
