@@ -12,7 +12,7 @@ import com.mitchellbosecke.pebble.template.PebbleTemplate;
 
 public class GeneratorHTML {
 	
-	public void generateHTMLCrime (Crime c) {
+	public void generateHTML (Crime c) {
 	
 		PebbleEngine engine = new PebbleEngine.Builder().build();
 		
@@ -55,6 +55,6 @@ public class GeneratorHTML {
 
 	}
 		
-	public void generateHTMLArea (int areaNumber) {}
+	public void generateHTML (int areaNumber) {}
 
 }		
