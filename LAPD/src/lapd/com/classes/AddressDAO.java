@@ -36,7 +36,7 @@ public class AddressDAO {
 			c.close();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.error(e.getMessage());
 		}
 		
 		return ad;

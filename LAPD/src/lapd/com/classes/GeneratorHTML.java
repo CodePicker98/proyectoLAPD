@@ -62,7 +62,7 @@ public class GeneratorHTML {
 
 	}
 		
-	public void generateHTML (int areaNumber) {
+	public void generateHTML (int areaNumber) {}
 		
 		Connection c;
 		PebbleEngine engine = new PebbleEngine.Builder().build();
