@@ -7,7 +7,9 @@ public class Status {
 		AA,
 		AO,
 		JA,
-		JO
+		JO,
+		CC,
+		INVALID
 	};
 	
 	private TypeStatus code;

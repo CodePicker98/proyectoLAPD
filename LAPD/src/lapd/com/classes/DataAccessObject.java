@@ -47,7 +47,7 @@ public class DataAccessObject {
 			
 			Statement s = c.createStatement();
 	
-			ResultSet rs = s.executeQuery("SELECT * FROM crimes WHERE id = " + areaNumber + ";");
+			ResultSet rs = s.executeQuery("SELECT * FROM crimes WHERE area = " + areaNumber + ";");
 			
 			while (rs.next()) {
 				

@@ -2,8 +2,8 @@ package lapd.com.classes;
 
 public class Victim {
 	
-	public enum Gender {F, M};
-	public enum TypeDescent {W, B, H, X, O};
+	public enum Gender {F, M, H, X, INVALID};
+	public enum TypeDescent {W, B, H, X, O, V, J, Z, D, I, K, P, G, S, U, A, C, L, F, INVALID};
 
 	private int id;
 	private int age;
