@@ -35,7 +35,7 @@ public class Victim {
 	@Override
 	public String toString () {
 		
-		return id + ";" + age + ";" + sex + ";" + descent;
+		return id + " " + age + " " + sex + " " + descent;
 		
 	}
 }

@@ -88,18 +88,18 @@ public class Crime {
 	@Override
 	public String toString () {
 		
-		String sentence = drNumber + "/" + dateReported + "/" + dateOcurred + "/" + timeOcurred + "/" + address + "/" + area + "/";
+		String sentence = drNumber + ";" + dateReported + ";" + dateOcurred + ";" + timeOcurred + ";" + address + ";" + area + ";";
 		
 		for (int i = 0; i < crimeTypes.size(); i++) {
 			
-			sentence += crimeTypes.get(i) + "/";
+			sentence += crimeTypes.get(i) + ";";
 			
 		}
 		
-		sentence += premise + "/" + status + "/" + victim;
+		sentence += premise + ";" + status + ";" + victim;
 		
 		if (weapon != null) {
-			sentence += "/" + weapon;
+			sentence += ";" + weapon;
 		}
 		
 		return sentence;

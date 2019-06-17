@@ -23,7 +23,7 @@ public class Premise {
 	@Override
 	public String toString () {
 		
-		return code + ";" + description;
+		return code + " " + description;
 		
 	}
 	

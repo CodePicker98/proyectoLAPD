@@ -27,7 +27,7 @@ public class CrimeType {
 	@Override
 	public String toString () {
 		
-		return code + ";" + description + ";" + moCode;
+		return code + " " + description + " " + moCode;
 		
 	}
 

@@ -43,7 +43,7 @@ public class Address {
 	@Override
 	public String toString () {
 		
-		return id + ";" + addressStreet + ";" + crossStreet + ";" + geoLocation + ";" + reportingDistrict;
+		return id + " " + addressStreet + " " + crossStreet + " " + geoLocation + " " + reportingDistrict;
 		
 	}
 	
