@@ -108,8 +108,6 @@ public class Main {
 					
 					gHTML.generateHTML(c);
 					
-					System.out.println("HTML correctly created.");
-					
 					Log.info("The HTML has been created correctly.");
 					
 					System.out.println("\nReturning to the menu...");
@@ -121,8 +119,6 @@ public class Main {
 					int idArea = Integer.parseInt(sc.nextLine());
 					
 					gHTML.generateHTML(idArea);
-					
-					System.out.println("HTML correctly created.");
 					
 					Log.info("The HTML has been created correctly.");
 					

@@ -48,11 +48,11 @@ public class GeneratorHTML {
 			
 			String outputBW = writer.toString();
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\pruebaHTMLCrimen.html"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\Crime" + c.getDrNumber() + ".html"));
 			bw.write(outputBW);
 			bw.close();
 			
-			System.out.println("HTML del Crimen generado correctamente...");
+			System.out.println("HTML correctly created.");
 			
 		} catch (Exception e) {
 			
@@ -151,22 +151,19 @@ public class GeneratorHTML {
 			
 			String outputBW = writer.toString();
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\AreaCrimen.html"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\AreaCrimen" + areaNumber + ".html"));
 			bw.write(outputBW);
 			bw.close();
 			
-			System.out.println("HTML del Area generado correctamente...");
+			System.out.println("HTML correctly created.");
 			
 			c.close();
 			
 		} catch (PebbleException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
