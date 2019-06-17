@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import lapd.com.config.Configuration;
+
 public class CrimeTypeDAO {
 
 	public static CrimeType createCrimeType (int crimeTypeCode) {
@@ -13,7 +15,7 @@ public class CrimeTypeDAO {
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
+			Connection c = DriverManager.getConnection(Configuration.getURLDB(), "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM crime_types WHERE code = ?");
 			

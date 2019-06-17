@@ -56,8 +56,8 @@ public class Configuration {
 	public static String getLines() {
 		return lines;
 	}
-
-
-
-
+	
+	public static String getURLDB() {
+		return "jdbc:postgresql://" + ip + ":" + port + "/proyectolapd";
+	}
 }

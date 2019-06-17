@@ -55,3 +55,4 @@ local.properties
 .scala_dependencies
 .worksheet
 /DBLoader/files/Crime_Data_from_2010_to_Present.csv
+/LAPD/log/log.log

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import lapd.com.classes.Victim.Gender;
 import lapd.com.classes.Victim.TypeDescent;
+import lapd.com.config.Configuration;
 
 public class VictimDAO {
 
@@ -15,7 +16,7 @@ public class VictimDAO {
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
+			Connection c = DriverManager.getConnection(Configuration.getURLDB(), "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM victims WHERE id = ?");
 			

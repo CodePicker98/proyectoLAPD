@@ -17,6 +17,8 @@ import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
 
+import lapd.com.config.Configuration;
+
 public class GeneratorHTML {
 	
 	public void generateHTML (Crime c) {
@@ -68,7 +70,7 @@ public class GeneratorHTML {
 		PebbleEngine engine = new PebbleEngine.Builder().build();
 		
 		try {
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
+			c = DriverManager.getConnection(Configuration.getURLDB(), "postgres", "root");
 			PebbleTemplate compiledTemplate = engine.getTemplate("templates\\HTMLCrimeArea\\AreaCrime.html");
 			
 			Writer writer = new StringWriter();

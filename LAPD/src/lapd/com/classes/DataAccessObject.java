@@ -18,7 +18,7 @@ public class DataAccessObject {
 		
 		try {
 			
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
+			Connection c = DriverManager.getConnection(Configuration.getURLDB(), "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM crimes WHERE area = ? LIMIT ? OFFSET ?");
 			
@@ -52,7 +52,7 @@ public class DataAccessObject {
 		ArrayList <Crime> crimes = new ArrayList<>();
 		
 		try {
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
+			Connection c = DriverManager.getConnection(Configuration.getURLDB(), "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM crimes WHERE date_ocurred BETWEEN ? AND ? LIMIT ? OFFSET ?");
 			

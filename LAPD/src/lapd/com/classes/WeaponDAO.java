@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import lapd.com.config.Configuration;
+
 public class WeaponDAO {
 
 	public static Weapon createWeapon (int weaponCode) {
@@ -13,7 +15,7 @@ public class WeaponDAO {
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
+			Connection c = DriverManager.getConnection(Configuration.getURLDB(), "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM weapons WHERE code = ?");
 			

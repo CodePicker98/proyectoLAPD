@@ -9,13 +9,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import lapd.com.config.Configuration;
+
 public class CrimeDAO {
 	
 	public static Crime createCrime (int drNumber) {
 		Crime cri = null;
 		
 		try {
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd","postgres","root");
+			Connection c = DriverManager.getConnection(Configuration.getURLDB(),"postgres","root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM Crimes WHERE dr_number = ?");
 			

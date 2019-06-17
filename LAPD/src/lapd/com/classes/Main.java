@@ -14,7 +14,7 @@ public class Main {
 		System.out.println("Welcome to Los Ángeles Police Department");
 		System.out.println("What do you want?");
 		
-		int opt = 0;
+		String opt = "";
 		String confirmation = "";
 		LocalDate date1 = null;
 		LocalDate date2 = null;
@@ -30,11 +30,11 @@ public class Main {
 			System.out.println("3. Generate HTML of a Crime");
 			System.out.println("4. Generate HTML of an Area");
 			System.out.println("5. Exit");
-			opt = Integer.parseInt(sc.nextLine());
+			opt = sc.nextLine();
 			
 			switch (opt) {
 			
-				case 1:
+				case "1":
 					
 					Iterator <Area> itA= AreaDAO.getAreas().iterator();
 					
@@ -52,14 +52,22 @@ public class Main {
 						System.out.println("Tell me the Area ID:");
 						int areaID = Integer.parseInt(sc.nextLine());
 						
-						Iterator <Crime> itCA = dao.getCrimes(areaID).iterator();
-					
-						while (itCA.hasNext()) {
+						do {
 							
-							System.out.println(itCA.next().toString());
+							Iterator <Crime> itCA = dao.getCrimes(areaID).iterator();
 							
-						}
+							while (itCA.hasNext()) {
+								
+								System.out.println(itCA.next().toString());
+								
+							}
+							
+							System.out.println("Show the following crimes?(\"s\"/anything)");
+							confirmation = sc.nextLine();
+							
+						} while (confirmation.equals("s"));	
 						
+						dao.resetStartPoint();						
 					}
 					
 					Log.info("The areas have been listed.");
@@ -67,7 +75,7 @@ public class Main {
 					System.out.println("\nReturning to the menu...");					
 					break;
 					
-				case 2:
+				case "2":
 					
 					DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					
@@ -94,12 +102,14 @@ public class Main {
 						
 					} while (confirmation.equals("s"));	
 					
+					dao.resetStartPoint();
+					
 					Log.info("The crimes have been listed.");
 					
 					System.out.println("\nReturning to the menu...");
 					break;
 					
-				case 3:
+				case "3":
 					
 					System.out.println("Tell me the Crime number(dr Number)");
 					int drNumber = Integer.parseInt(sc.nextLine());
@@ -113,9 +123,9 @@ public class Main {
 					System.out.println("\nReturning to the menu...");
 					break;
 					
-				case 4:
+				case "4":
 					
-					System.out.println("Tell me the Area ID");
+					System.out.println("Tell me the Area ID: ");
 					int idArea = Integer.parseInt(sc.nextLine());
 					
 					gHTML.generateHTML(idArea);
@@ -125,7 +135,7 @@ public class Main {
 					System.out.println("\nReturning to the menu...");
 					break;
 					
-				case 5:
+				case "5":
 					
 					System.out.println("Goodbye Agent.");
 					break;
@@ -138,7 +148,7 @@ public class Main {
 					
 			}
 			
-		} while (opt != 5);
+		} while (!opt.equals("5"));
 		
 		sc.close();
 		

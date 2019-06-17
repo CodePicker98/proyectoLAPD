@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import lapd.com.config.Configuration;
+
 public class AreaDAO {
 
 	public static Area createArea (int areaID) {
@@ -15,7 +17,7 @@ public class AreaDAO {
 		
 		try {
 		
-			Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/proyectolapd", "postgres", "root");
+			Connection c = DriverManager.getConnection(Configuration.getURLDB(), "postgres", "root");
 			
 			PreparedStatement ps = c.prepareStatement("SELECT * FROM areas WHERE id = ?");
 			
