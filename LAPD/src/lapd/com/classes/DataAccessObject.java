@@ -1,6 +1,9 @@
 package lapd.com.classes;
 
 import java.util.ArrayList;
+
+import lapd.com.config.Configuration;
+
 import java.time.LocalDate;
 import java.sql.*;
 
@@ -21,8 +24,7 @@ public class DataAccessObject {
 			
 			ps.setInt(1, areaNumber);
 			
-			//cambiaremos el limite por el getNumLineas de la clase de config.
-			ps.setInt(2, limit);
+			ps.setInt(2, Integer.parseInt(Configuration.getLines()));
 			ps.setInt(3, startPoint);
 			
 			ResultSet rs = ps.executeQuery();
@@ -56,9 +58,7 @@ public class DataAccessObject {
 			
 			ps.setDate(1, Date.valueOf(dateInit));
 			ps.setDate(2, Date.valueOf(dateFinal));
-			
-			//cambiaremos el limite por el getNumLineas de la clase de config.
-			ps.setInt(3, limit);
+			ps.setInt(3, Integer.parseInt(Configuration.getLines()));
 			ps.setInt(4, startPoint);
 			
 			ResultSet rs = ps.executeQuery();
