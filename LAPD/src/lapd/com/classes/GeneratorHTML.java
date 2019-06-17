@@ -153,7 +153,7 @@ public class GeneratorHTML {
 			
 			String outputBW = writer.toString();
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\AreaCrimen" + areaNumber + ".html"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("outputs\\AreaCrime" + areaNumber + ".html"));
 			bw.write(outputBW);
 			bw.close();
 			

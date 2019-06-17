@@ -2,14 +2,19 @@ package lapd.com.classes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+
+import lapd.com.config.Configuration;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner (System.in);
+		
+		Configuration.load();
 		
 		System.out.println("Welcome to Los Ángeles Police Department");
 		System.out.println("What do you want?");
@@ -54,12 +59,18 @@ public class Main {
 						
 						do {
 							
-							Iterator <Crime> itCA = dao.getCrimes(areaID).iterator();
+							ArrayList<Crime> crimenes = dao.getCrimes(areaID);
+							
+							Iterator <Crime> itCA = crimenes.iterator();
 							
 							while (itCA.hasNext()) {
 								
 								System.out.println(itCA.next().toString());
 								
+							}
+							
+							if(crimenes.size() < Integer.parseInt(Configuration.getLines())) {
+								break;
 							}
 							
 							System.out.println("Show the following crimes?(\"s\"/anything)");
@@ -89,7 +100,9 @@ public class Main {
 									
 					do {
 						
-						Iterator <Crime> itCD = dao.getCrimes(date1, date2).iterator();
+						ArrayList<Crime> crimenes = dao.getCrimes(date1, date2);
+						
+						Iterator <Crime> itCD = crimenes.iterator();
 						
 						while (itCD.hasNext()) {
 							
@@ -99,6 +112,10 @@ public class Main {
 					
 						System.out.println("Show the following crimes?(\"s\"/anything)");
 						confirmation = sc.nextLine();
+						
+						if(crimenes.size() < Integer.parseInt(Configuration.getLines())) {
+							break;
+						}
 						
 					} while (confirmation.equals("s"));	
 					
